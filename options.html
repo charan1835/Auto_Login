@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>LPU Helper Settings</title>
+    <style>
+        body {
+            font-family: Arial, system-ui;
+            padding: 16px;
+            max-width: 640px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 14px;
+            padding: 8px 12px;
+        }
+
+        small {
+            color: #666;
+            display: block;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>LPU Helper Suite — Settings</h2>
+
+    <label>Username</label>
+    <input id="username" type="text" placeholder="Enter your LPU ID">
+
+    <label>Password</label>
+    <input id="password" type="password" placeholder="Enter your LPU password">
+
+    <div class="row">
+        <input id="toggleAutoLogin" type="checkbox">
+        <label for="toggleAutoLogin" style="margin:0">Enable Auto Login</label>
+    </div>
+
+    <div class="row">
+        <input id="togglePopupBlocker" type="checkbox">
+        <label for="togglePopupBlocker" style="margin:0">Enable UMS Popup Killer</label>
+    </div>
+
+    <hr>
+
+    <label>Enable local encryption (optional)</label>
+    <div class="row">
+        <input id="toggleEncryption" type="checkbox">
+        <label for="toggleEncryption" style="margin:0">Store password encrypted (key stored locally)</label>
+    </div>
+    <small>
+        Note: encryption key is stored locally in your browser storage. This makes the stored password less obvious,
+        but if someone has access to your browser profile they can still read it. This is obfuscation, not a full vault.
+    </small>
+
+    <button id="save">Save Settings</button>
+    <button id="clearCreds" style="margin-left:8px;">Clear Credentials</button>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

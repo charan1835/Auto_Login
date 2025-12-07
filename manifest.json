@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "LPU Helper Suite",
+  "version": "1.0",
+  "description": "Auto-login for LPU 24Online + Popup Killer for LPU UMS.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://internet.lpu.in/24online/webpages/*"
+      ],
+      "js": [
+        "autologin.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://ums.lpu.in/lpuums/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
