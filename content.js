@@ -1,1 +1,33 @@
-function _0x6752() { const _0x3bdf63 = ['#divTesting', 'local', '712fvyrLt', '9561bVLHEy', '4541466cGqbEJ', 'display', 'beforeunload', 'querySelector', '5ZzOBJb', '90lRrTYs', '583pyYsQv', '8kHrGUY', 'addEventListener', 'none', 'remove', '161412qzLuWA', '857944rJzMJH', '2194556WfSZvS', '.ui-dialog', '622449nWPaVC', 'style', 'storage', '.ui-widget-overlay', 'get', 'popupBlockerEnabled', '228229lJRjpq']; _0x6752 = function () { return _0x3bdf63; }; return _0x6752(); } function _0x3c83(_0x195137, _0x2417d0) { _0x195137 = _0x195137 - 0xea; const _0x675204 = _0x6752(); let _0x3c8379 = _0x675204[_0x195137]; return _0x3c8379; } const _0x42c6cf = _0x3c83; (function (_0x3a2b7c, _0x20c7b5) { const _0x3145cf = _0x3c83, _0x5dfb9d = _0x3a2b7c(); while (!![]) { try { const _0x15d6a4 = parseInt(_0x3145cf(0x103)) / 0x1 + parseInt(_0x3145cf(0xfa)) / 0x2 + -parseInt(_0x3145cf(0xed)) / 0x3 * (-parseInt(_0x3145cf(0xec)) / 0x4) + parseInt(_0x3145cf(0xf2)) / 0x5 * (-parseInt(_0x3145cf(0xee)) / 0x6) + parseInt(_0x3145cf(0xfb)) / 0x7 * (parseInt(_0x3145cf(0xf5)) / 0x8) + parseInt(_0x3145cf(0xfd)) / 0x9 * (parseInt(_0x3145cf(0xf3)) / 0xa) + -parseInt(_0x3145cf(0xf4)) / 0xb * (parseInt(_0x3145cf(0xf9)) / 0xc); if (_0x15d6a4 === _0x20c7b5) break; else _0x5dfb9d['push'](_0x5dfb9d['shift']()); } catch (_0x86cbc2) { _0x5dfb9d['push'](_0x5dfb9d['shift']()); } } }(_0x6752, 0xa89c6)); function nukeUMSPopup() { const _0x38dec8 = _0x3c83, _0x5269f3 = document['querySelector']('.ui-dialog'); if (_0x5269f3) _0x5269f3[_0x38dec8(0xf8)](); const _0x1d4e76 = document[_0x38dec8(0xf1)](_0x38dec8(0x100)); if (_0x1d4e76) _0x1d4e76['remove'](); const _0x1ac650 = document[_0x38dec8(0xf1)](_0x38dec8(0xea))?.['closest'](_0x38dec8(0xfc)); if (_0x1ac650) _0x1ac650[_0x38dec8(0xf8)](); const _0x4c5e73 = document[_0x38dec8(0xf1)]('#divTesting'); if (_0x4c5e73) _0x4c5e73[_0x38dec8(0xfe)][_0x38dec8(0xef)] = _0x38dec8(0xf7); } chrome[_0x42c6cf(0xff)][_0x42c6cf(0xeb)][_0x42c6cf(0x101)]([_0x42c6cf(0x102)], _0x9932b7 => { const _0x5c070d = _0x42c6cf; if (!_0x9932b7['popupBlockerEnabled']) return; const _0x38d68a = setInterval(nukeUMSPopup, 0x12c); nukeUMSPopup(), window[_0x5c070d(0xf6)](_0x5c070d(0xf0), () => clearInterval(_0x38d68a)); })
+// content.js
+// Popup killer only runs if popupBlockerEnabled toggle is ON.
+
+function nukeUMSPopup() {
+    const dialog = document.querySelector('.ui-dialog');
+    if (dialog) dialog.remove();
+
+    const overlay = document.querySelector('.ui-widget-overlay');
+    if (overlay) overlay.remove();
+
+    const modal = document.querySelector('#divTesting')?.closest('.ui-dialog');
+    if (modal) modal.remove();
+
+    // also hide any inline modal-like element just in case
+    const inlineModal = document.querySelector('#divTesting');
+    if (inlineModal) inlineModal.style.display = 'none';
+}
+
+// Check toggle and start interval if enabled
+chrome.storage.local.get(["popupBlockerEnabled"], (res) => {
+    if (!res.popupBlockerEnabled) {
+        // not enabled; do nothing
+        return;
+    }
+    // Start aggressive interval to remove popup if it spawns
+    const interval = setInterval(nukeUMSPopup, 300);
+
+    // Also attempt a one-time cleanup on first run
+    nukeUMSPopup();
+
+    // If the page unloads, clear the interval
+    window.addEventListener('beforeunload', () => clearInterval(interval));
+});

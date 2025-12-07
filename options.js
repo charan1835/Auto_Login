@@ -1,1 +1,139 @@
-const _0x4be408 = _0x157c; (function (_0x5c1b9d, _0x5a3a0a) { const _0x368300 = _0x157c, _0x50fba8 = _0x5c1b9d(); while (!![]) { try { const _0x57a2de = parseInt(_0x368300(0x1f6)) / 0x1 + -parseInt(_0x368300(0x1f4)) / 0x2 * (parseInt(_0x368300(0x1fd)) / 0x3) + -parseInt(_0x368300(0x1e8)) / 0x4 + parseInt(_0x368300(0x1eb)) / 0x5 + parseInt(_0x368300(0x1f2)) / 0x6 * (parseInt(_0x368300(0x207)) / 0x7) + -parseInt(_0x368300(0x205)) / 0x8 + -parseInt(_0x368300(0x1dd)) / 0x9 * (-parseInt(_0x368300(0x1fb)) / 0xa); if (_0x57a2de === _0x5a3a0a) break; else _0x50fba8['push'](_0x50fba8['shift']()); } catch (_0x74af22) { _0x50fba8['push'](_0x50fba8['shift']()); } } }(_0x4734, 0x402f1)); function _0x4734() { const _0x25c60a = ['466033gdKWWF', 'getElementById', 'togglePopupBlocker', 'clearCreds', 'encryptedPassword', '3010EuIceD', 'password', '3dUZYug', 'placeholder', 'username', 'encode', 'raw', 'Remove\x20username\x20and\x20password\x20from\x20local\x20storage?', 'save', 'Saved.', '2920520CDtHHJ', 'Cleared.', '7tUwZhe', 'Password\x20stored\x20(encrypted)', 'Password\x20is\x20empty.\x20This\x20will\x20clear\x20stored\x20password.\x20Continue?', 'click', 'storage', 'get', '__encryption_key_raw', '12483UAGdlF', 'local', 'set', 'subtle', 'fromCharCode', 'Please\x20enter\x20username.', 'decode', 'addEventListener', 'decrypt', 'autoLoginEnabled', 'toggleAutoLogin', '810072rFCQmu', 'encryptionEnabled', 'AES-GCM', '473710hwWpbI', 'value', 'importKey', 'checked', 'generateKey', 'length', 'encrypt', '694968HylkRl', 'popupBlockerEnabled', '527220fpXJCL', 'buffer']; _0x4734 = function () { return _0x25c60a; }; return _0x4734(); } function abToBase64(_0x2419ff) { const _0x3f8fdb = _0x157c, _0x3fb6fc = new Uint8Array(_0x2419ff); let _0x52e25c = ''; for (let _0x362e8b = 0x0; _0x362e8b < _0x3fb6fc[_0x3f8fdb(0x1f0)]; _0x362e8b++)_0x52e25c += String[_0x3f8fdb(0x1e1)](_0x3fb6fc[_0x362e8b]); return btoa(_0x52e25c); } function base64ToAb(_0x37c9c4) { const _0x2adfd2 = _0x157c, _0x48f7f2 = atob(_0x37c9c4), _0x729a5a = _0x48f7f2[_0x2adfd2(0x1f0)], _0x5950e0 = new Uint8Array(_0x729a5a); for (let _0x35ac15 = 0x0; _0x35ac15 < _0x729a5a; _0x35ac15++)_0x5950e0[_0x35ac15] = _0x48f7f2['charCodeAt'](_0x35ac15); return _0x5950e0[_0x2adfd2(0x1f5)]; } async function generateAndStoreKey() { const _0x5bf6e9 = _0x157c, _0x54f12d = await crypto[_0x5bf6e9(0x1e0)][_0x5bf6e9(0x1ef)]({ 'name': _0x5bf6e9(0x1ea), 'length': 0x100 }, !![], [_0x5bf6e9(0x1f1), _0x5bf6e9(0x1e5)]), _0x32f888 = await crypto[_0x5bf6e9(0x1e0)]['exportKey'](_0x5bf6e9(0x201), _0x54f12d), _0x1edd2d = abToBase64(_0x32f888); return await chrome[_0x5bf6e9(0x1da)]['local'][_0x5bf6e9(0x1df)]({ '__encryption_key_raw': _0x1edd2d }), _0x1edd2d; } async function importKeyFromStorage(_0x3cbbb6) { const _0xcbeecf = _0x157c, _0x326c79 = base64ToAb(_0x3cbbb6); return crypto[_0xcbeecf(0x1e0)][_0xcbeecf(0x1ed)](_0xcbeecf(0x201), _0x326c79, _0xcbeecf(0x1ea), !![], ['encrypt', _0xcbeecf(0x1e5)]); } function _0x157c(_0x4983d1, _0x34bf77) { _0x4983d1 = _0x4983d1 - 0x1da; const _0x4734f0 = _0x4734(); let _0x157cd2 = _0x4734f0[_0x4983d1]; return _0x157cd2; } async function encryptText(_0x7779d7, _0x304dc9) { const _0x32d032 = _0x157c, _0x2dfe46 = new TextEncoder(), _0x56b627 = crypto['getRandomValues'](new Uint8Array(0xc)), _0x2123bf = await crypto[_0x32d032(0x1e0)][_0x32d032(0x1f1)]({ 'name': _0x32d032(0x1ea), 'iv': _0x56b627 }, _0x7779d7, _0x2dfe46[_0x32d032(0x200)](_0x304dc9)); return { 'iv': abToBase64(_0x56b627[_0x32d032(0x1f5)]), 'data': abToBase64(_0x2123bf) }; } async function decryptText(_0x3d64ba, _0x24be1e) { const _0x4dac8f = _0x157c, _0x1cc557 = new TextDecoder(), _0x148317 = base64ToAb(_0x24be1e['iv']), _0x478878 = base64ToAb(_0x24be1e['data']), _0x159aa3 = await crypto['subtle'][_0x4dac8f(0x1e5)]({ 'name': _0x4dac8f(0x1ea), 'iv': new Uint8Array(_0x148317) }, _0x3d64ba, _0x478878); return _0x1cc557[_0x4dac8f(0x1e3)](_0x159aa3); } const userField = document[_0x4be408(0x1f7)](_0x4be408(0x1ff)), passField = document[_0x4be408(0x1f7)](_0x4be408(0x1fc)), saveBtn = document[_0x4be408(0x1f7)](_0x4be408(0x203)), clearBtn = document['getElementById'](_0x4be408(0x1f9)), toggleAuto = document[_0x4be408(0x1f7)](_0x4be408(0x1e7)), togglePopup = document[_0x4be408(0x1f7)](_0x4be408(0x1f8)), toggleEnc = document[_0x4be408(0x1f7)]('toggleEncryption'); chrome[_0x4be408(0x1da)]['local'][_0x4be408(0x1db)]([_0x4be408(0x1ff), 'password', _0x4be408(0x1fa), _0x4be408(0x1e6), _0x4be408(0x1f3), _0x4be408(0x1e9), _0x4be408(0x1dc)], async _0x4ec3c7 => { const _0x30ff55 = _0x4be408; if (_0x4ec3c7[_0x30ff55(0x1ff)]) userField[_0x30ff55(0x1ec)] = _0x4ec3c7['username']; if (_0x4ec3c7[_0x30ff55(0x1fc)] && !_0x4ec3c7[_0x30ff55(0x1fa)]) passField[_0x30ff55(0x1ec)] = _0x4ec3c7[_0x30ff55(0x1fc)]; _0x4ec3c7['encryptedPassword'] && (passField[_0x30ff55(0x1fe)] = _0x30ff55(0x208)), toggleAuto[_0x30ff55(0x1ee)] = !!_0x4ec3c7[_0x30ff55(0x1e6)], togglePopup['checked'] = !!_0x4ec3c7['popupBlockerEnabled'], toggleEnc[_0x30ff55(0x1ee)] = !!_0x4ec3c7[_0x30ff55(0x1e9)]; }), saveBtn['addEventListener'](_0x4be408(0x20a), async () => { const _0x4b9df7 = _0x4be408, _0xd2fde3 = userField[_0x4b9df7(0x1ec)] || '', _0x1c5c40 = passField[_0x4b9df7(0x1ec)] || '', _0x213a77 = toggleEnc['checked']; if (!_0xd2fde3) { alert(_0x4b9df7(0x1e2)); return; } if (!_0x1c5c40 && !_0x213a77) { if (!confirm(_0x4b9df7(0x209))) return; } const _0x206dd1 = toggleAuto[_0x4b9df7(0x1ee)], _0xf1a656 = togglePopup[_0x4b9df7(0x1ee)]; if (_0x213a77) { let { __encryption_key_raw: _0x435137 } = await chrome[_0x4b9df7(0x1da)][_0x4b9df7(0x1de)][_0x4b9df7(0x1db)]('__encryption_key_raw'); !_0x435137 ? _0x435137 = await generateAndStoreKey() : _0x435137 = _0x435137[_0x4b9df7(0x1dc)]; const _0x364f6a = await importKeyFromStorage(_0x435137), _0x50778f = await encryptText(_0x364f6a, _0x1c5c40); await chrome[_0x4b9df7(0x1da)][_0x4b9df7(0x1de)][_0x4b9df7(0x1df)]({ 'username': _0xd2fde3, 'encryptedPassword': _0x50778f, 'autoLoginEnabled': _0x206dd1, 'popupBlockerEnabled': _0xf1a656, 'encryptionEnabled': !![] }), alert('Saved\x20(password\x20encrypted\x20locally).'); } else await chrome[_0x4b9df7(0x1da)][_0x4b9df7(0x1de)][_0x4b9df7(0x1df)]({ 'username': _0xd2fde3, 'password': _0x1c5c40, 'autoLoginEnabled': _0x206dd1, 'popupBlockerEnabled': _0xf1a656, 'encryptionEnabled': ![], 'encryptedPassword': null }), alert(_0x4b9df7(0x204)); }), clearBtn[_0x4be408(0x1e4)]('click', async () => { const _0x21be18 = _0x4be408; if (!confirm(_0x21be18(0x202))) return; await chrome['storage'][_0x21be18(0x1de)]['remove']([_0x21be18(0x1ff), _0x21be18(0x1fc), 'encryptedPassword', _0x21be18(0x1dc)]), userField[_0x21be18(0x1ec)] = '', passField['value'] = '', passField['placeholder'] = '', alert(_0x21be18(0x206)); });
+// options.js
+// Helpers for base64 conversion
+function abToBase64(ab) {
+    const u8 = new Uint8Array(ab);
+    let binary = "";
+    for (let i = 0; i < u8.length; i++) binary += String.fromCharCode(u8[i]);
+    return btoa(binary);
+}
+function base64ToAb(b64) {
+    const binary = atob(b64);
+    const len = binary.length;
+    const u8 = new Uint8Array(len);
+    for (let i = 0; i < len; i++) u8[i] = binary.charCodeAt(i);
+    return u8.buffer;
+}
+
+// generate an AES-GCM key and return exported raw key (base64)
+async function generateAndStoreKey() {
+    const key = await crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]);
+    const raw = await crypto.subtle.exportKey("raw", key);
+    const rawB64 = abToBase64(raw);
+    await chrome.storage.local.set({ __encryption_key_raw: rawB64 });
+    return rawB64;
+}
+
+// import a base64 raw key to CryptoKey
+async function importKeyFromStorage(rawB64) {
+    const raw = base64ToAb(rawB64);
+    return crypto.subtle.importKey("raw", raw, "AES-GCM", true, ["encrypt", "decrypt"]);
+}
+
+// encrypt text with a provided CryptoKey -> returns { iv: base64, data: base64 }
+async function encryptText(key, text) {
+    const enc = new TextEncoder();
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, enc.encode(text));
+    return {
+        iv: abToBase64(iv.buffer),
+        data: abToBase64(ct)
+    };
+}
+
+// decrypt given {iv, data} with CryptoKey
+async function decryptText(key, obj) {
+    const dec = new TextDecoder();
+    const iv = base64ToAb(obj.iv);
+    const ct = base64ToAb(obj.data);
+    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: new Uint8Array(iv) }, key, ct);
+    return dec.decode(pt);
+}
+
+// UI elements
+const userField = document.getElementById("username");
+const passField = document.getElementById("password");
+const saveBtn = document.getElementById("save");
+const clearBtn = document.getElementById("clearCreds");
+const toggleAuto = document.getElementById("toggleAutoLogin");
+const togglePopup = document.getElementById("togglePopupBlocker");
+const toggleEnc = document.getElementById("toggleEncryption");
+
+// Load stored settings
+chrome.storage.local.get(["username", "password", "encryptedPassword", "autoLoginEnabled", "popupBlockerEnabled", "encryptionEnabled", "__encryption_key_raw"], async (data) => {
+    if (data.username) userField.value = data.username;
+    if (data.password && !data.encryptedPassword) passField.value = data.password;
+
+    // If stored encryptedPassword, we won't decrypt here automatically for display.
+    // We simply inform user that password is stored encrypted.
+    if (data.encryptedPassword) {
+        passField.placeholder = "Password stored (encrypted)";
+    }
+
+    toggleAuto.checked = !!data.autoLoginEnabled;
+    togglePopup.checked = !!data.popupBlockerEnabled;
+    toggleEnc.checked = !!data.encryptionEnabled;
+});
+
+// Save handler
+saveBtn.addEventListener("click", async () => {
+    const username = userField.value || "";
+    const password = passField.value || "";
+    const encryptionEnabled = toggleEnc.checked;
+
+    if (!username) {
+        alert("Please enter username.");
+        return;
+    }
+    if (!password && !encryptionEnabled) {
+        // If encryption is disabled and no password, warn
+        if (!confirm("Password is empty. This will clear stored password. Continue?")) return;
+    }
+
+    // store toggle states
+    const autoLoginEnabled = toggleAuto.checked;
+    const popupBlockerEnabled = togglePopup.checked;
+
+    // If encryption enabled:
+    if (encryptionEnabled) {
+        // ensure key exists
+        let { __encryption_key_raw } = await chrome.storage.local.get("__encryption_key_raw");
+        if (!__encryption_key_raw) {
+            __encryption_key_raw = await generateAndStoreKey();
+        } else {
+            __encryption_key_raw = __encryption_key_raw.__encryption_key_raw;
+        }
+
+        const key = await importKeyFromStorage(__encryption_key_raw);
+        const encObj = await encryptText(key, password);
+        await chrome.storage.local.set({
+            username,
+            encryptedPassword: encObj,
+            autoLoginEnabled,
+            popupBlockerEnabled,
+            encryptionEnabled: true
+            // do NOT keep plaintext 'password' field
+        });
+        alert("Saved (password encrypted locally).");
+    } else {
+        // store plaintext password (local storage)
+        await chrome.storage.local.set({
+            username,
+            password,
+            autoLoginEnabled,
+            popupBlockerEnabled,
+            encryptionEnabled: false,
+            encryptedPassword: null
+        });
+        alert("Saved.");
+    }
+});
+
+// Clear credentials completely
+clearBtn.addEventListener("click", async () => {
+    if (!confirm("Remove username and password from local storage?")) return;
+    await chrome.storage.local.remove(["username", "password", "encryptedPassword", "__encryption_key_raw"]);
+    userField.value = "";
+    passField.value = "";
+    passField.placeholder = "";
+    alert("Cleared.");
+});
