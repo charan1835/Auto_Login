@@ -99,12 +99,22 @@ saveBtn.addEventListener("click", async () => {
         let { __encryption_key_raw } = await chrome.storage.local.get("__encryption_key_raw");
         if (!__encryption_key_raw) {
             __encryption_key_raw = await generateAndStoreKey();
-        } else {
-            __encryption_key_raw = __encryption_key_raw.__encryption_key_raw;
         }
 
         const key = await importKeyFromStorage(__encryption_key_raw);
-        const encObj = await encryptText(key, password);
+
+        let encObj;
+        // Check if we have an existing encrypted password to preserve
+        const { encryptedPassword } = await chrome.storage.local.get("encryptedPassword");
+
+        if (!password && encryptedPassword) {
+            // User left field empty but we have a stored password -> keep it
+            encObj = encryptedPassword;
+        } else {
+            // Encrypt what user typed (or empty string if really new)
+            encObj = await encryptText(key, password);
+        }
+
         await chrome.storage.local.set({
             username,
             encryptedPassword: encObj,
