@@ -101,7 +101,15 @@ saveBtn.addEventListener("click", async () => {
             __encryption_key_raw = await generateAndStoreKey();
         }
 
-        const key = await importKeyFromStorage(__encryption_key_raw);
+        let key;
+        try {
+            key = await importKeyFromStorage(__encryption_key_raw);
+        } catch (e) {
+            console.error("Encryption key corrupted, resetting...", e);
+            await generateAndStoreKey();
+            alert("Encryption key was corrupted and has been reset. Please re-enter your password and Save again.");
+            return;
+        }
 
         let encObj;
         // Check if we have an existing encrypted password to preserve

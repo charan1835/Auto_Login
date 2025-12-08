@@ -57,38 +57,48 @@ chrome.storage.local.get(["autoLoginEnabled", "username", "password", "encrypted
     password = data.password || "";
   }
 
-  // If we have username/password, attempt to autofill after page load
-  window.addEventListener("load", function () {
+  // If we have username/password, attempt to autofill
+  function tryLogin() {
+    console.log("LPU Helper: valid config found. Attempting login...");
+
     const userField = document.querySelector("input[name='username']");
     const passField = document.querySelector("input[name='password']");
     const termsCheck = document.querySelector("input[type='checkbox']");
+    // Some versions have different buttons
     const loginBtn = document.querySelector("#loginbtn") || document.querySelector("input[type='submit'], button[type='submit']");
 
     if (userField && username) {
+      console.log("LPU Helper: filling username");
       userField.value = username;
       fireAll(userField);
     }
 
     if (passField && password) {
+      console.log("LPU Helper: filling password");
       passField.value = password;
       fireAll(passField);
     }
 
     if (termsCheck) {
+      console.log("LPU Helper: checking terms");
       termsCheck.checked = true;
       fireAll(termsCheck);
     }
 
     if (loginBtn) {
+      console.log("LPU Helper: enabling login button");
       loginBtn.disabled = false;
       loginBtn.removeAttribute("disabled");
       loginBtn.style.opacity = "1";
       loginBtn.style.pointerEvents = "auto";
     }
 
-    // Try calling site-specific function (they had appendUserName earlier)
+    // Try calling site-specific function
     try {
-      if (typeof appendUserName === "function") appendUserName();
+      if (typeof appendUserName === "function") {
+        console.log("LPU Helper: calling appendUserName()");
+        appendUserName();
+      }
     } catch (e) {
       // ignore
     }
@@ -96,9 +106,19 @@ chrome.storage.local.get(["autoLoginEnabled", "username", "password", "encrypted
     // click login after a short delay
     setTimeout(() => {
       if (loginBtn) {
+        console.log("LPU Helper: clicking login button...");
         loginBtn.click();
-        console.log("Auto Login Clicked.");
+      } else {
+        console.warn("LPU Helper: Login button not found!");
       }
-    }, 500);
-  });
+    }, 500); // Check if 100ms was too fast
+  }
+
+  // Logic to determine WHEN to run
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    // document already loaded
+    tryLogin();
+  } else {
+    window.addEventListener("load", tryLogin);
+  }
 });
