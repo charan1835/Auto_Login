@@ -1,83 +1,391 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LPU Helper Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+
+        :root {
+            --primary: #ff5722;
+            --primary-hover: #f4511e;
+            --primary-glow: #ff572280;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --input-bg: #0f172a;
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, system-ui;
-            padding: 16px;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: var(--primary-glow);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            top: -100px;
+            left: -100px;
+        }
+
+        .glow-2 {
+            bottom: -100px;
+            right: -100px;
+            background: #3b82f680;
+        }
+
+        .container {
             max-width: 640px;
+            margin: 0 auto;
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
         label {
             display: block;
-            margin-top: 12px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
         }
 
         input[type="text"],
         input[type="password"] {
             width: 100%;
-            padding: 8px;
-            margin-top: 6px;
-            box-sizing: border-box;
+            padding: 0.875rem 1rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
         }
 
-        .row {
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: var(--text-muted);
+        }
+
+        .toggle-section {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .toggle-row {
             display: flex;
-            gap: 12px;
             align-items: center;
-            margin-top: 10px;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+        }
+
+        .toggle-row:not(:last-child) {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+        }
+
+        .toggle-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toggle-text span {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .toggle-text small {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        /* Custom Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+        }
+
+        .toggle-switch input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #334155;
+            transition: 0.3s;
+            border-radius: 28px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input[type="checkbox"]:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input[type="checkbox"]:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .info-box::before {
+            content: "ℹ️";
+            margin-right: 0.5rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         button {
-            margin-top: 14px;
-            padding: 8px 12px;
+            flex: 1;
+            min-width: 140px;
+            padding: 0.875rem 1.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        small {
-            color: #666;
-            display: block;
-            margin-top: 6px;
+        #save {
+            background: linear-gradient(135deg, var(--primary), #f97316);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(255, 87, 34, 0.39);
+        }
+
+        #save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.5);
+        }
+
+        #clearCreds {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        #clearCreds:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
-    <h2>LPU Helper Suite — Settings</h2>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
 
-    <label>Username</label>
-    <input id="username" type="text" placeholder="Enter your LPU ID">
+    <div class="container">
+        <h2>⚙️ Settings</h2>
+        <p class="subtitle">Configure your LPU Helper Suite preferences</p>
 
-    <label>Password</label>
-    <input id="password" type="password" placeholder="Enter your LPU password">
+        <div class="form-group">
+            <label>Username</label>
+            <input id="username" type="text" placeholder="Enter your LPU ID">
+        </div>
 
-    <div class="row">
-        <input id="toggleAutoLogin" type="checkbox">
-        <label for="toggleAutoLogin" style="margin:0">Enable Auto Login</label>
+        <div class="form-group">
+            <label>Password</label>
+            <input id="password" type="password" placeholder="Enter your LPU password">
+        </div>
+
+        <div class="toggle-section">
+            <h3>🎛️ Features</h3>
+            <div class="toggle-row">
+                <div class="toggle-label">
+                    <span class="toggle-icon">🚀</span>
+                    <div class="toggle-text">
+                        <span>Auto Login</span>
+                        <small>Automatically login to LPU 24Online WiFi</small>
+                    </div>
+                </div>
+                <label class="toggle-switch">
+                    <input id="toggleAutoLogin" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="toggle-row">
+                <div class="toggle-label">
+                    <span class="toggle-icon">🛡️</span>
+                    <div class="toggle-text">
+                        <span>UMS Popup Killer</span>
+                        <small>Block annoying UMS popup notifications</small>
+                    </div>
+                </div>
+                <label class="toggle-switch">
+                    <input id="togglePopupBlocker" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="toggle-section">
+            <h3>🔒 Security</h3>
+            <div class="toggle-row">
+                <div class="toggle-label">
+                    <span class="toggle-icon">🔐</span>
+                    <div class="toggle-text">
+                        <span>Password Encryption</span>
+                        <small>Store password with AES-GCM encryption</small>
+                    </div>
+                </div>
+                <label class="toggle-switch">
+                    <input id="toggleEncryption" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="info-box">
+                Encryption key is stored locally in your browser. This obscures your password but isn't a replacement for a password manager.
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="save">💾 Save Settings</button>
+            <button id="clearCreds">🗑️ Clear Credentials</button>
+        </div>
     </div>
-
-    <div class="row">
-        <input id="togglePopupBlocker" type="checkbox">
-        <label for="togglePopupBlocker" style="margin:0">Enable UMS Popup Killer</label>
-    </div>
-
-    <hr>
-
-    <label>Enable local encryption (optional)</label>
-    <div class="row">
-        <input id="toggleEncryption" type="checkbox">
-        <label for="toggleEncryption" style="margin:0">Store password encrypted (key stored locally)</label>
-    </div>
-    <small>
-        Note: encryption key is stored locally in your browser storage. This makes the stored password less obvious,
-        but if someone has access to your browser profile they can still read it. This is obfuscation, not a full vault.
-    </small>
-
-    <button id="save">Save Settings</button>
-    <button id="clearCreds" style="margin-left:8px;">Clear Credentials</button>
 
     <script src="options.js"></script>
 </body>
